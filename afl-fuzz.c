@@ -6825,7 +6825,7 @@ static void show_stats(void) {
 
   sprintf(tmp + banner_pad, "%s " cLCY VERSION cLGN
     " (%s)", crash_mode ? cPIN "peruvian were-rabbit" :
-    cYEL "SNPSFuzzer", use_banner);
+    cYEL "SSF", use_banner);
 
   SAYF("\n%s\n\n", tmp);
 
@@ -7120,16 +7120,23 @@ static void show_stats(void) {
 
   SAYF(bV bSTOP "        trim : " cRST "%-37s " bSTG bV SP10 SP10 "    " bV bSTOP "\n", tmp);
 
-  SAYF(bSTG bVR bH cCYA bSTOP " SNPSFuzzer yields " bSTG bH20 bH10 bH2 bH bHT bH20 bH2 bH2 bVL bSTOP "\n");
+  SAYF(bSTG bVR bH cCYA bSTOP " SSF yields " bSTG bH20 bH10 bH2 bH bHT bH20 bH2 bH2 bVL bSTOP "\n");
 
   /* Show stats for SNPSFuzzer */
   sprintf(tmp, "%s snapshot and %s snapshot", can_snapshot_flag?"can":"can't", has_snapshot_flag?"has":"has't");
   SAYF(bSTG bV bSTOP "    snapshot flags : " "%s%-56s " cRST bSTG bV bSTOP"\n", (can_snapshot_flag&has_snapshot_flag)?cLGN:cRST, tmp);
+  // if(can_snapshot_flag)
+  //   sprintf(tmp, "algorithm:%d, target state:%d, snapshot position:%d",mca_algo,target_state_id, current_choose_position+1);
+  // else
+  //   sprintf(tmp, "algorithm:%d, target state:%d",mca_algo,target_state_id);
+  // SAYF(bSTG bV bSTOP "     MCA algorithm : " cRST "%-56s " bSTG bV cRST bSTOP"\n", tmp);
   if(can_snapshot_flag)
-    sprintf(tmp, "algorithm:%d, target state:%d, snapshot position:%d",mca_algo,target_state_id, current_choose_position+1);
+    sprintf(tmp, " target state:%d, snapshot position:%d",target_state_id, current_choose_position+1);
   else
-    sprintf(tmp, "algorithm:%d, target state:%d",mca_algo,target_state_id);
-  SAYF(bSTG bV bSTOP "     MCA algorithm : " cRST "%-56s " bSTG bV cRST bSTOP"\n", tmp);
+    sprintf(tmp, " target state:%d",target_state_id);
+  SAYF(bSTG bV bSTOP "    snapshot state : " cRST "%-56s " bSTG bV cRST bSTOP"\n", tmp);
+
+
   if(can_snapshot_flag && has_snapshot_flag==1)
     sprintf(tmp, "%d+%d=%d", messages_sent_m1, messages_sent_m23-messages_sent_m1,messages_sent_m23);
   else
